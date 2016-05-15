@@ -1,8 +1,4 @@
-package com.dssmp.village.common.service;
-
-import com.dssmp.village.common.model.GeoBaidu;
-
-import java.io.IOException;
+package com.dssmp.village.common.security;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,14 +17,8 @@ import java.io.IOException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface GeoService {
-
-    /**
-     * 获取百度地址位置信息
-     *
-     * @param x
-     * @param y
-     * @return
-     */
-    GeoBaidu geoBaidu(double x, double y) throws IOException;
+public enum Authorities {
+    ROLE_ANONYMOUS,
+    ROLE_USER,
+    ROLE_ADMIN
 }

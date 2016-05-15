@@ -1,8 +1,7 @@
-package com.dssmp.village.common.service;
+package com.dssmp.village.common.model;
 
-import com.dssmp.village.common.model.GeoBaidu;
 
-import java.io.IOException;
+import com.dssmp.village.common.model.geo.GeoResult;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,14 +20,30 @@ import java.io.IOException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface GeoService {
+public class GeoBaidu {
+    /**
+     * 状态
+     */
+    private int status;
 
     /**
-     * 获取百度地址位置信息
-     *
-     * @param x
-     * @param y
-     * @return
+     * 结果
      */
-    GeoBaidu geoBaidu(double x, double y) throws IOException;
+    private GeoResult result;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public GeoResult getResult() {
+        return result;
+    }
+
+    public void setResult(GeoResult result) {
+        this.result = result;
+    }
 }

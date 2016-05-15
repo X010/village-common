@@ -1,5 +1,10 @@
 package com.dssmp.village.common;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,5 +22,19 @@ package com.dssmp.village.common;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan
 public class Application {
+
+    /**
+     * 启动程序
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+
+        SpringApplication.run(Application.class, args);
+
+    }
 }

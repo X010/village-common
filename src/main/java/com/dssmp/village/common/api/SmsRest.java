@@ -1,6 +1,8 @@
 package com.dssmp.village.common.api;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Controller;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Controller
+@RestController
+@RequestMapping(value = "sms")
 public class SmsRest {
 }

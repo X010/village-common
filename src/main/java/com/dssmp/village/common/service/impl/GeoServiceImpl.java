@@ -1,7 +1,15 @@
 package com.dssmp.village.common.service.impl;
 
+import com.dssmp.village.common.config.ApplicationConfig;
+import com.dssmp.village.common.model.GeoBaidu;
 import com.dssmp.village.common.service.GeoService;
+import com.dssmp.village.common.utils.HttpClientUtil;
+import com.dssmp.village.common.utils.JsonParser;
+import com.google.common.base.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,4 +30,19 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GeoServiceImpl implements GeoService {
+
+    @Autowired
+    private ApplicationConfig applicationConfig;
+
+    @Override
+    public GeoBaidu geoBaidu(double x, double y) throws IOException {
+        GeoBaidu geoBaidu = null;
+        String location = this.applicationConfig.getGeocoder().replace("${1}", (x + "," + y));
+        HttpClientUtil httpClientUtil = HttpClientUtil.getInstance();
+        String response = httpClientUtil.getGetResponseAsString(location);
+        if (!Strings.isNullOrEmpty(response)) {
+            geoBaidu = (GeoBaidu) JsonParser.StringToJsonVideo(response, GeoBaidu.class);
+        }
+        return geoBaidu;
+    }
 }

@@ -1,6 +1,15 @@
 package com.dssmp.village.common.service.impl;
 
+import com.dssmp.village.common.model.SmsMessage;
 import com.dssmp.village.common.service.SmsService;
+import com.google.common.base.Preconditions;
+import com.taobao.api.ApiException;
+import com.taobao.api.TaobaoClient;
+import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
+import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,5 +31,33 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SmsServiceImpl implements SmsService {
+    private final static Logger LOG = LoggerFactory.getLogger(SmsServiceImpl.class);
 
+    @Autowired
+    private TaobaoServiceImpl taobaoService;
+
+    /**
+     * 发送短信
+     *
+     * @param smsMessage
+     * @return
+     */
+    public boolean postMessage(SmsMessage smsMessage) {
+        Preconditions.checkNotNull(smsMessage);
+        boolean res = false;
+        TaobaoClient taobaoClient = taobaoService.getTaobaoClient();
+        try {
+            AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
+            req.setSmsType("normal");
+            req.setSmsFreeSignName(smsMessage.getFreeSign());
+            req.setSmsParamString("{\"code\":\"" + smsMessage.getMessage() + "\",\"product\":\"" + smsMessage.getSystemName() + "\"}");
+            req.setRecNum(smsMessage.getPhone());
+            req.setSmsTemplateCode(smsMessage.getTempcode());
+            AlibabaAliqinFcSmsNumSendResponse rsp = taobaoClient.execute(req);
+            LOG.info(rsp.getBody());
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 }

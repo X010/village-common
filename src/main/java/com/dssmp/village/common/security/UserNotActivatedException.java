@@ -1,8 +1,6 @@
-package com.dssmp.village.common.service;
+package com.dssmp.village.common.security;
 
-import com.dssmp.village.common.model.GeoBaidu;
-
-import java.io.IOException;
+import org.springframework.security.core.AuthenticationException;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,14 +19,13 @@ import java.io.IOException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface GeoService {
+public class UserNotActivatedException extends AuthenticationException {
 
-    /**
-     * 获取百度地址位置信息
-     *
-     * @param x
-     * @param y
-     * @return
-     */
-    GeoBaidu geoBaidu(double x, double y) throws IOException;
+    public UserNotActivatedException(String msg, Throwable t) {
+        super(msg, t);
+    }
+
+    public UserNotActivatedException(String msg) {
+        super(msg);
+    }
 }

@@ -1,5 +1,7 @@
 package com.dssmp.village.common.service;
 
+import com.dssmp.village.common.model.SmsMessage;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +20,12 @@ package com.dssmp.village.common.service;
  * limitations under the License.
  */
 public interface SmsService {
+
+    /**
+     * 发送SMS消息
+     *
+     * @param smsMessage
+     * @return
+     */
+    boolean postMessage(SmsMessage smsMessage);
 }

@@ -1,8 +1,10 @@
-package com.dssmp.village.common.service;
+package com.dssmp.village.common.service.impl;
 
-import com.dssmp.village.common.model.GeoBaidu;
-
-import java.io.IOException;
+import com.dssmp.village.common.config.ApplicationConfig;
+import com.taobao.api.DefaultTaobaoClient;
+import com.taobao.api.TaobaoClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,14 +23,25 @@ import java.io.IOException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface GeoService {
+@Service
+public class TaobaoServiceImpl {
+
+    @Autowired
+    private ApplicationConfig applicationConfig;
+
+
+    private static TaobaoClient client = null;
 
     /**
-     * 获取百度地址位置信息
+     * 获取实例
      *
-     * @param x
-     * @param y
      * @return
      */
-    GeoBaidu geoBaidu(double x, double y) throws IOException;
+    public TaobaoClient getTaobaoClient() {
+        if (client == null) {
+            //新建实例
+            client = new DefaultTaobaoClient(applicationConfig.getSmsurl(), applicationConfig.getAppkey(), applicationConfig.getAppsecret());
+        }
+        return client;
+    }
 }
