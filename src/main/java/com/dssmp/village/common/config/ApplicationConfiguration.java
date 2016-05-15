@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConfigurationProperties(locations = "classpath:application.properties", prefix = "application")
-public class ApplicationConfig {
+public class ApplicationConfiguration {
     /**
      * SMS地址
      */

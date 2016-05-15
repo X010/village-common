@@ -1,6 +1,6 @@
 package com.dssmp.village.common.service.impl;
 
-import com.dssmp.village.common.config.ApplicationConfig;
+import com.dssmp.village.common.config.ApplicationConfiguration;
 import com.dssmp.village.common.model.GeoBaidu;
 import com.dssmp.village.common.service.GeoService;
 import com.dssmp.village.common.utils.HttpClientUtil;
@@ -32,7 +32,7 @@ import java.io.IOException;
 public class GeoServiceImpl implements GeoService {
 
     @Autowired
-    private ApplicationConfig applicationConfig;
+    private ApplicationConfiguration applicationConfig;
 
     @Override
     public GeoBaidu geoBaidu(double x, double y) throws IOException {

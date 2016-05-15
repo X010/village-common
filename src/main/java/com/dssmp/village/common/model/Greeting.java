@@ -1,10 +1,4 @@
-package com.dssmp.village.common.service.impl;
-
-import com.dssmp.village.common.config.ApplicationConfiguration;
-import com.taobao.api.DefaultTaobaoClient;
-import com.taobao.api.TaobaoClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.dssmp.village.common.model;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,25 +17,21 @@ import org.springframework.stereotype.Service;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Service
-public class TaobaoServiceImpl {
+public class Greeting {
 
-    @Autowired
-    private ApplicationConfiguration applicationConfig;
+    private final long id;
+    private final String content;
 
+    public Greeting(long id, String content) {
+        this.id = id;
+        this.content = content;
+    }
 
-    private static TaobaoClient client = null;
+    public long getId() {
+        return id;
+    }
 
-    /**
-     * 获取实例
-     *
-     * @return
-     */
-    public TaobaoClient getTaobaoClient() {
-        if (client == null) {
-            //新建实例
-            client = new DefaultTaobaoClient(applicationConfig.getSmsurl(), applicationConfig.getAppkey(), applicationConfig.getAppsecret());
-        }
-        return client;
+    public String getContent() {
+        return content;
     }
 }

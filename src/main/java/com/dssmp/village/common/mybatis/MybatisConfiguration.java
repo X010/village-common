@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = {"com.dssmp.village.common.mybatis.mapper"})
 public class MybatisConfiguration implements EnvironmentAware {
-    private Logger logger = LoggerFactory.getLogger(MybatisConfiguration.class);
+    private Logger LOG = LoggerFactory.getLogger(MybatisConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 
@@ -47,7 +47,7 @@ public class MybatisConfiguration implements EnvironmentAware {
 
             return sessionFactory.getObject();
         } catch (Exception e) {
-            logger.warn("Could not confiure mybatis session factory");
+            LOG.warn("Could not confiure mybatis session factory");
             return null;
         }
     }

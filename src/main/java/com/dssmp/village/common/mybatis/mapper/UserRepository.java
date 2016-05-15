@@ -1,10 +1,7 @@
-package com.dssmp.village.common.service.impl;
+package com.dssmp.village.common.mybatis.mapper;
 
-import com.dssmp.village.common.config.ApplicationConfiguration;
-import com.taobao.api.DefaultTaobaoClient;
-import com.taobao.api.TaobaoClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.dssmp.village.common.model.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,25 +20,19 @@ import org.springframework.stereotype.Service;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Service
-public class TaobaoServiceImpl {
-
-    @Autowired
-    private ApplicationConfiguration applicationConfig;
-
-
-    private static TaobaoClient client = null;
+public interface UserRepository {
 
     /**
-     * 获取实例
-     *
+     * 根据Email获取用户
+     * @param email
      * @return
      */
-    public TaobaoClient getTaobaoClient() {
-        if (client == null) {
-            //新建实例
-            client = new DefaultTaobaoClient(applicationConfig.getSmsurl(), applicationConfig.getAppkey(), applicationConfig.getAppsecret());
-        }
-        return client;
-    }
+    User findByEmail(@Param("email") String email);
+
+    /**
+     * 根据用户名获取用户
+     * @param username
+     * @return
+     */
+    User findByUsernameCaseInsensitive(@Param("username") String username);
 }
