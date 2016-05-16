@@ -1,6 +1,8 @@
 package com.dssmp.village.common.service.impl;
 
 import com.dssmp.village.common.service.AuthService;
+import com.dssmp.village.common.utils.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,4 +25,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthServiceImpl implements AuthService {
 
+    @Autowired
+    private RedisUtil redisUtil;
 }

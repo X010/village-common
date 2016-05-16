@@ -1,8 +1,14 @@
 package com.dssmp.village.common.api;
 
-import org.springframework.stereotype.Controller;
+import com.dssmp.village.common.model.RM;
+import com.dssmp.village.common.service.SmsService;
+import com.dssmp.village.common.utils.JsonParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,5 +29,24 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "sms")
-public class SmsRest {
+public class SmsRest extends BaseRest {
+
+    @Autowired
+    private SmsService smsService;
+
+    /**
+     * 发送短信
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "verification")
+    public void verification(HttpServletRequest request, HttpServletResponse response) {
+        String res = null;
+        RM<String> rm = new RM<String>();
+
+
+        res = JsonParser.simpleJson(rm);
+        this.response_write(request, response, res);
+    }
 }

@@ -43,7 +43,6 @@ public class AuthRest extends BaseRest {
      * @param response
      * @return
      */
-    @ResponseBody
     @RequestMapping(value = "auth")
     public void auth(HttpServletRequest request, HttpServletResponse response) {
         RM<Passport> passport = new RM<Passport>();
@@ -60,7 +59,6 @@ public class AuthRest extends BaseRest {
      * @param request
      * @param response
      */
-    @ResponseBody
     @RequestMapping(value = "token")
     public void token(HttpServletRequest request, HttpServletResponse response) {
         RM<Passport> passport = new RM<Passport>();
@@ -77,7 +75,6 @@ public class AuthRest extends BaseRest {
      * @param request
      * @param response
      */
-    @ResponseBody
     @RequestMapping(value = "logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         RM<String> rm = new RM<String>();
@@ -95,7 +92,6 @@ public class AuthRest extends BaseRest {
      * @param request
      * @param response
      */
-    @ResponseBody
     @RequestMapping(value = "register")
     public void register(HttpServletRequest request, HttpServletResponse response) {
         RM<Passport> passport = new RM<Passport>();

@@ -1,16 +1,12 @@
 package com.dssmp.village.common.api;
 
-import com.dssmp.village.common.model.Letter;
 import com.dssmp.village.common.model.RM;
-import com.dssmp.village.common.service.LetterService;
 import com.dssmp.village.common.utils.JsonParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,41 +26,37 @@ import java.util.List;
  * limitations under the License.
  */
 @RestController
-@RequestMapping(value = "letter")
-public class LetterRest extends BaseRest {
-
-    @Autowired
-    private LetterService letterService;
+@RequestMapping(value = "step")
+public class StepRest extends BaseRest {
 
 
     /**
-     * 发送私信
+     * 顶
      *
      * @param request
      * @param response
      */
-    @RequestMapping(value = "smtp")
-    public void smtp(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "top")
+    public void top(HttpServletRequest request, HttpServletResponse response) {
         String res = null;
-        RM<Letter> rm = new RM<Letter>();
+        RM<String> rm = new RM<String>();
 
         res = JsonParser.simpleJson(rm);
         this.response_write(request, response, res);
     }
 
     /**
-     * 接收私信
+     * 踩
      *
      * @param request
      * @param response
      */
-    @RequestMapping(value = "pop")
-    public void pop(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "step")
+    public void step(HttpServletRequest request, HttpServletResponse response) {
         String res = null;
-        RM<List<Letter>> rms = new RM<List<Letter>>();
+        RM<String> rm = new RM<String>();
 
-
-        res = JsonParser.simpleJson(rms);
+        res = JsonParser.simpleJson(rm);
         this.response_write(request, response, res);
     }
 }

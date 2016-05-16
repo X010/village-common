@@ -4,6 +4,8 @@ import com.dssmp.village.common.utils.ConstUtil;
 import com.dssmp.village.common.utils.RequestUtil;
 import com.dssmp.village.common.utils.ResponseUtil;
 import com.google.common.base.Charsets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
  * limitations under the License.
  */
 public abstract class BaseRest {
+
+    protected final static Logger LOG = LoggerFactory.getLogger(BaseRest.class);
 
     /**
      * 将数据写至Response

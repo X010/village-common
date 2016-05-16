@@ -1,9 +1,4 @@
-package com.dssmp.village.common.api;
-
-import com.dssmp.village.common.service.PeakService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+package com.dssmp.village.common.model;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,13 +17,5 @@ import org.springframework.web.bind.annotation.RestController;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@RestController
-@RequestMapping(value = "peak")
-public class PeakRest extends BaseRest {
-
-    @Autowired
-    private PeakService peakService;
-
-
-
+public class Step {
 }

@@ -1,11 +1,12 @@
 package com.dssmp.village.common.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Pipeline;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,22 +25,151 @@ import org.springframework.core.env.Environment;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Configuration
-public class RedisUtil implements EnvironmentAware {
-    private Logger LOG = LoggerFactory.getLogger(RedisUtil.class);
-    private static final int REDIS_POOL_MAXACTIVE = 1024;
-    private static final int REDIS_POOL_MAXIDLE = 200;
-    private static final int REDIS_POOL_MAXWAIT = 5000;
-    private static final boolean REDIS_POOL_TESTONBORROW = true;
-    private static final boolean REDIS_TEST_ON_RETURN = true;
+public class RedisUtil {
 
-    private RelaxedPropertyResolver propertyResolver;
+    private JedisPool jedisPool;
 
 
+    public RedisUtil(JedisPool jedisPool) {
+        this.jedisPool = jedisPool;
+    }
 
 
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.propertyResolver = new RelaxedPropertyResolver(environment, "application.redis.");
+    /**
+     * 累加数据
+     *
+     * @param key
+     * @param hashKey
+     * @param number
+     */
+    public void mSetIncr(String key, String hashKey, int number) {
+        Jedis jedis = jedisPool.getResource();
+        jedis.hincrBy(key, hashKey, number);
+        jedisPool.returnResource(jedis);
+    }
+
+    /**
+     * 累加数据
+     *
+     * @param key
+     * @param hashKey
+     * @param number
+     */
+    public void mSet(String key, String hashKey, int number) {
+        Jedis jedis = jedisPool.getResource();
+        jedis.hset(key, hashKey, String.valueOf(number));
+        jedisPool.returnResource(jedis);
+    }
+
+    /**
+     * 累加数据
+     *
+     * @param key
+     * @param hashKey
+     * @param number
+     */
+    public void mSet(String key, String hashKey, String number) {
+        Jedis jedis = jedisPool.getResource();
+        jedis.hset(key, hashKey, number);
+        jedisPool.returnResource(jedis);
+    }
+
+    /**
+     * 设置
+     *
+     * @param key
+     * @param value
+     */
+    public void setKey(String key, String value) {
+        Jedis jedis = jedisPool.getResource();
+        jedis.set(key, value);
+        jedisPool.returnResource(jedis);
+    }
+
+
+    /**
+     * 缓存数据并设置过期时间
+     *
+     * @param key
+     * @param value
+     * @param tt
+     */
+    public void setKey(String key, String value, int tt) {
+        Jedis jedis = jedisPool.getResource();
+        jedis.set(key, value);
+        jedis.expire(key, tt);
+        jedisPool.returnResource(jedis);
+    }
+
+    /**
+     * 获取Hash Field的数据
+     *
+     * @param key
+     * @param hashKey
+     * @return
+     */
+    public String getKey(String key, String hashKey) {
+        String value = null;
+        Jedis jedis = jedisPool.getResource();
+        value = jedis.hget(key, hashKey);
+        jedisPool.returnResource(jedis);
+        return value;
+    }
+
+
+    /**
+     * 获取多个KEY值
+     *
+     * @param keys
+     * @return
+     */
+    public List<String> mget(String... keys) {
+        Jedis jedis = jedisPool.getResource();
+        List<String> result = jedis.mget(keys);
+        jedisPool.returnResource(jedis);
+        return result;
+    }
+
+    /**
+     * 获取缓存数据
+     *
+     * @param key
+     * @return
+     */
+    public String getKey(String key) {
+        String value = null;
+        Jedis jedis = jedisPool.getResource();
+        value = jedis.get(key);
+        jedisPool.returnResource(jedis);
+        return value;
+    }
+
+    /**
+     * 获取多个
+     *
+     * @param key
+     * @return
+     */
+    public Set<String> getKeys(String key) {
+        Set<String> value = null;
+        Jedis jedis = jedisPool.getResource();
+        value = jedis.keys(key);
+        jedisPool.returnResource(jedis);
+        return value;
+    }
+
+    public void usePipelineWriteRedis(Map<String, String> values) {
+        Jedis jedis = jedisPool.getResource();
+        Pipeline pl = jedis.pipelined();
+        try {
+            Set<String> keys = values.keySet();
+            for (String key : keys) {
+                pl.set(key, values.get(key));
+            }
+            pl.sync();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jedisPool.returnResource(jedis);
     }
 }
