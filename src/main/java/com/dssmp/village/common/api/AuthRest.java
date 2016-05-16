@@ -1,7 +1,7 @@
 package com.dssmp.village.common.api;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,5 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "auth2")
 public class AuthRest {
 
-
+    @ResponseBody
+    @RequestMapping(value = "hello")
+    public String hello() {
+        return "hello";
+    }
 }

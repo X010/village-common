@@ -1,6 +1,6 @@
 package com.dssmp.village.common.mybatis;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.alibaba.druid.pool.DruidDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
@@ -22,23 +22,18 @@ public class DataBaseConfiguration implements EnvironmentAware {
 
     private RelaxedPropertyResolver propertyResolver;
 
-    private static Logger log = LoggerFactory.getLogger(DataBaseConfiguration.class);
+    private static Logger LOG = LoggerFactory.getLogger(DataBaseConfiguration.class);
 
-    @Bean(name = "dataSource", destroyMethod = "close")
     @Primary
+    @Bean(name = "dataSource", destroyMethod = "close")
     public DataSource dataSource() {
-        log.debug("Configruing Write DataSource");
-
-        ComboPooledDataSource datasource = new ComboPooledDataSource();
+        LOG.debug("Configruing Write DataSource");
+        DruidDataSource datasource = new DruidDataSource();
         try {
-            datasource.setJdbcUrl(propertyResolver.getProperty("dburl"));
-            datasource.setDriverClass(propertyResolver.getProperty("driverClass"));
-            datasource.setUser(propertyResolver.getProperty("username"));
+            datasource.setUrl(propertyResolver.getProperty("dburl"));
+            datasource.setDriverClassName(propertyResolver.getProperty("driverClass"));
+            datasource.setUsername(propertyResolver.getProperty("username"));
             datasource.setPassword(propertyResolver.getProperty("password"));
-            //datasource.setInitialSize(5);
-            //datasource.setMaxActive(10);
-            //datasource.setMinIdle(10);
-            //datasource.setMaxIdle(20);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,6 +43,6 @@ public class DataBaseConfiguration implements EnvironmentAware {
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.propertyResolver=new RelaxedPropertyResolver(environment, "jdbc.");
+        this.propertyResolver = new RelaxedPropertyResolver(environment, "jdbc.");
     }
 }
