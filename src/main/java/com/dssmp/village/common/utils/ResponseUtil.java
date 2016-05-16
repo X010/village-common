@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Copyright (c) 2014, Sohu.com All Rights Reserved.
  * <p/>
- * User: jeffreywu  MailTo:jeffreywu@sohu-inc.com
+ * Passport: jeffreywu  MailTo:jeffreywu@sohu-inc.com
  * Date: 14-7-30
  * Time: AM9:52
  */

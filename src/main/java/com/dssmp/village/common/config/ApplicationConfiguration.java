@@ -48,6 +48,7 @@ public class ApplicationConfiguration {
      */
     private String geocoder;
 
+
     public String getBaiduak() {
         return baiduak;
     }

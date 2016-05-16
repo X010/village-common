@@ -1,8 +1,16 @@
 package com.dssmp.village.common.api;
 
+import com.dssmp.village.common.model.Passport;
+import com.dssmp.village.common.model.RM;
+import com.dssmp.village.common.service.AuthService;
+import com.dssmp.village.common.utils.JsonParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,11 +31,78 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "auth2")
-public class AuthRest {
+public class AuthRest extends BaseRest {
 
+    @Autowired
+    private AuthService authService;
+
+    /**
+     * 获取验证
+     *
+     * @param request
+     * @param response
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(value = "hello")
-    public String hello() {
-        return "hello";
+    @RequestMapping(value = "auth")
+    public void auth(HttpServletRequest request, HttpServletResponse response) {
+        RM<Passport> passport = new RM<Passport>();
+        String res = null;
+
+
+        res = JsonParser.simpleJson(passport);
+        this.response_write(request, response, res);
+    }
+
+    /**
+     * 根据Token获取用户信息
+     *
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value = "token")
+    public void token(HttpServletRequest request, HttpServletResponse response) {
+        RM<Passport> passport = new RM<Passport>();
+        String res = null;
+
+
+        res = JsonParser.simpleJson(passport);
+        this.response_write(request, response, res);
+    }
+
+    /**
+     * 退出
+     *
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value = "logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        RM<String> rm = new RM<String>();
+        String res = null;
+
+
+        res = JsonParser.simpleJson(rm);
+        this.response_write(request, response, res);
+    }
+
+
+    /**
+     * 注册用户
+     *
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value = "register")
+    public void register(HttpServletRequest request, HttpServletResponse response) {
+        RM<Passport> passport = new RM<Passport>();
+        String res = null;
+
+
+        res = JsonParser.simpleJson(passport);
+        this.response_write(request, response, res);
     }
 }
