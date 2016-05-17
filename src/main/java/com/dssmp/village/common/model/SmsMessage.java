@@ -19,7 +19,7 @@ import java.util.Date;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class SmsMessage {
+public class SmsMessage  extends ID {
 
     /**
      * Message ID

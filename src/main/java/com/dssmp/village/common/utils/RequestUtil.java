@@ -82,4 +82,23 @@ public class RequestUtil {
         if (!Strings.isNullOrEmpty(value)) res = Long.valueOf(value);
         return res;
     }
+
+    /**
+     * 验证参数
+     *
+     * @param request
+     * @param parms
+     * @return
+     */
+    public static String vailParam(HttpServletRequest request, String... parms) {
+        String result = null;
+        for (String para : parms) {
+            String def = request.getParameter(para);
+            if (Strings.isNullOrEmpty(def)) {
+                result = String.format("parameter [%s] is null", para);
+                break;
+            }
+        }
+        return result;
+    }
 }

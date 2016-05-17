@@ -20,4 +20,9 @@ package com.dssmp.village.common.utils;
 public class ConstUtil {
 
     public final static String CALLBACK = "a";
+
+    /**
+     * 过期时间
+     */
+    public final static int TIME = 3 * 60 * 60;
 }

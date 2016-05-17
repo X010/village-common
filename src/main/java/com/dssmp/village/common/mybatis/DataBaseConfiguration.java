@@ -34,6 +34,20 @@ public class DataBaseConfiguration implements EnvironmentAware {
             datasource.setDriverClassName(propertyResolver.getProperty("driverClass"));
             datasource.setUsername(propertyResolver.getProperty("username"));
             datasource.setPassword(propertyResolver.getProperty("password"));
+            datasource.setMaxActive(20);
+            datasource.setInitialSize(1);
+            datasource.setMaxActive(60000);
+            datasource.setMinIdle(10);
+            datasource.setTimeBetweenEvictionRunsMillis(60000);
+            datasource.setMinEvictableIdleTimeMillis(30000);
+            datasource.setValidationQuery("SELECT 'x'");
+            datasource.setTestWhileIdle(true);
+            datasource.setTestOnBorrow(false);
+            datasource.setTestOnReturn(false);
+            datasource.setMaxOpenPreparedStatements(20);
+            datasource.setRemoveAbandoned(false);
+            datasource.setRemoveAbandonedTimeout(1800);
+            datasource.setLogAbandoned(true);
         } catch (Exception e) {
             e.printStackTrace();
         }

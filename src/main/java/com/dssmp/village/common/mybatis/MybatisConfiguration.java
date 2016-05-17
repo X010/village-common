@@ -36,7 +36,6 @@ public class MybatisConfiguration implements EnvironmentAware {
     @ConditionalOnMissingBean
     public SqlSessionFactory sqlSessionFactory() {
         try {
-
             SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
             sessionFactory.setDataSource(dataSource);
             sessionFactory.setTypeAliasesPackage(propertyResolver.getProperty("typeAliasesPackage"));

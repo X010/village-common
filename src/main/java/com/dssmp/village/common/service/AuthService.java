@@ -1,5 +1,7 @@
 package com.dssmp.village.common.service;
 
+import com.dssmp.village.common.model.Passport;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +20,32 @@ package com.dssmp.village.common.service;
  * limitations under the License.
  */
 public interface AuthService {
+
+    /**
+     * 注册用户
+     *
+     * @param passport
+     * @return
+     */
+    public Passport register(Passport passport);
+
+    /**
+     * 票据
+     * @param token
+     * @return
+     */
+    public Passport token(String token);
+
+    /**
+     * 验证
+     * @param passport
+     * @return
+     */
+    public Passport auth(Passport passport);
+
+    /**
+     * 注册用户
+     * @param token
+     */
+    public void logout(String token);
 }

@@ -17,5 +17,17 @@ package com.dssmp.village.common.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class Letter  extends ID {
+public abstract class ID {
+    /**
+     * ID
+     */
+    protected long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

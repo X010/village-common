@@ -51,6 +51,11 @@
     </pluginRepositories>
 
     <dependencies>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1</version>
+        </dependency>
         <!-- http://mvnrepository.com/artifact/redis.clients/jedis -->
         <dependency>
             <groupId>redis.clients</groupId>
@@ -209,6 +214,16 @@
                             <classpathPrefix>lib</classpathPrefix>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptor>assembly.xml</descriptor>
+                    <finalName>sneaker-sms</finalName>
+                    <outputDirectory>target</outputDirectory>
+                    <workDirectory>target</workDirectory>
                 </configuration>
             </plugin>
             <plugin>

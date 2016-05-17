@@ -2,6 +2,7 @@ package com.dssmp.village.common.api;
 
 import com.dssmp.village.common.model.Comment;
 import com.dssmp.village.common.model.RM;
+import com.dssmp.village.common.service.CommentsService;
 import com.dssmp.village.common.utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ import java.util.List;
 public class CommentsRest extends BaseRest {
 
     @Autowired
-    private CommentsRest commentsRest;
+    private CommentsService commentsService;
 
     /**
      * 评论

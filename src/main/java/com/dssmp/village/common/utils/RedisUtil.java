@@ -62,6 +62,17 @@ public class RedisUtil {
     }
 
     /**
+     * 删除KEY
+     *
+     * @param key
+     */
+    public void delete(String key) {
+        Jedis jedis = jedisPool.getResource();
+        jedis.del(key);
+        jedisPool.returnResource(jedis);
+    }
+
+    /**
      * 累加数据
      *
      * @param key

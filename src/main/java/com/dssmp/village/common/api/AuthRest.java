@@ -4,9 +4,10 @@ import com.dssmp.village.common.model.Passport;
 import com.dssmp.village.common.model.RM;
 import com.dssmp.village.common.service.AuthService;
 import com.dssmp.village.common.utils.JsonParser;
+import com.dssmp.village.common.utils.RequestUtil;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,8 +48,22 @@ public class AuthRest extends BaseRest {
     public void auth(HttpServletRequest request, HttpServletResponse response) {
         RM<Passport> passport = new RM<Passport>();
         String res = null;
-
-
+        String username = RequestUtil.getString(request, "username", null);
+        String password = RequestUtil.getString(request, "password", null);
+        String vail = RequestUtil.vailParam(request, "username", "password");
+        if (Strings.isNullOrEmpty(vail)) {
+            Passport user = new Passport(username, "", "", password);
+            user = this.authService.auth(user);
+            if (!Strings.isNullOrEmpty(user.getTicket())) {
+                passport.setData(user);
+            } else {
+                passport.setStatus(403);
+                passport.setMessage("用户或密码错误");
+            }
+        } else {
+            passport.setStatus(400);
+            passport.setMessage(vail);
+        }
         res = JsonParser.simpleJson(passport);
         this.response_write(request, response, res);
     }
@@ -63,8 +78,20 @@ public class AuthRest extends BaseRest {
     public void token(HttpServletRequest request, HttpServletResponse response) {
         RM<Passport> passport = new RM<Passport>();
         String res = null;
-
-
+        String token = RequestUtil.getString(request, "token", null);
+        String vail = RequestUtil.vailParam(request, "token");
+        if (Strings.isNullOrEmpty(vail)) {
+            Passport user = this.authService.token(token);
+            if (user!=null&&!Strings.isNullOrEmpty(user.getTicket())) {
+                passport.setData(user);
+            } else {
+                passport.setStatus(403);
+                passport.setMessage("用户没有登陆");
+            }
+        } else {
+            passport.setStatus(400);
+            passport.setMessage(vail);
+        }
         res = JsonParser.simpleJson(passport);
         this.response_write(request, response, res);
     }
@@ -79,8 +106,14 @@ public class AuthRest extends BaseRest {
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         RM<String> rm = new RM<String>();
         String res = null;
-
-
+        String token = RequestUtil.getString(request, "token", null);
+        String vail = RequestUtil.vailParam(request, "token");
+        if (!Strings.isNullOrEmpty(token)) {
+            this.authService.logout(token);
+        } else {
+            rm.setStatus(400);
+            rm.setMessage(vail);
+        }
         res = JsonParser.simpleJson(rm);
         this.response_write(request, response, res);
     }
@@ -96,8 +129,24 @@ public class AuthRest extends BaseRest {
     public void register(HttpServletRequest request, HttpServletResponse response) {
         RM<Passport> passport = new RM<Passport>();
         String res = null;
-
-
+        String username = RequestUtil.getString(request, "username", null);
+        String nickname = RequestUtil.getString(request, "nickname", null);
+        String phone = RequestUtil.getString(request, "phone", null);
+        String password = RequestUtil.getString(request, "password", null);
+        String vail = RequestUtil.vailParam(request, "username", "nickname", "phone", "password");
+        if (Strings.isNullOrEmpty(vail)) {
+            Passport user = new Passport(username, nickname, phone, password);
+            user = this.authService.register(user);
+            if (!Strings.isNullOrEmpty(user.getTicket())) {
+                passport.setData(user);
+            } else {
+                passport.setStatus(403);
+                passport.setMessage("用户已经存在");
+            }
+        } else {
+            passport.setStatus(400);
+            passport.setMessage(vail);
+        }
         res = JsonParser.simpleJson(passport);
         this.response_write(request, response, res);
     }

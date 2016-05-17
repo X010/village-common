@@ -1,4 +1,8 @@
-package com.dssmp.village.common.model;
+package com.dssmp.village.common.mybatis.mapper;
+
+import com.dssmp.village.common.model.Passport;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -17,5 +21,26 @@ package com.dssmp.village.common.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class Letter  extends ID {
+public interface AuthMapper {
+
+    /**
+     * 添加Passport数据
+     *
+     * @param passport
+     */
+    public void insertPassport(Passport passport);
+
+    /**
+     * 根据用户与密码获取Passport
+     * @param passport
+     * @return
+     */
+    public List<Passport> findPassportByUsernameAndPhone(Passport passport);
+
+    /**
+     * 登陆验证
+     * @param passport
+     * @return
+     */
+    public Passport findPassportByAuth(Passport passport);
 }
