@@ -38,7 +38,7 @@ public class StepServiceImpl implements StepService {
         if (old != null && old.getId() > 0) {
             old.setStep(old.getStep() + 1);
             old.setLast_update_time(new Date());
-            this.stepMapper.updateById(step);
+            this.stepMapper.updateById(old);
             step = old;
         } else {
             step.setStep(1);
@@ -55,7 +55,7 @@ public class StepServiceImpl implements StepService {
         if (old != null && old.getId() > 0) {
             old.setPeak(old.getPeak() + 1);
             old.setLast_update_time(new Date());
-            this.stepMapper.updateById(step);
+            this.stepMapper.updateById(old);
             step = old;
         } else {
             step.setPeak(1);
@@ -63,5 +63,10 @@ public class StepServiceImpl implements StepService {
             this.stepMapper.insertStep(step);
         }
         return step;
+    }
+
+    @Override
+    public Step info(Step step) {
+        return this.stepMapper.findStepByPid(step);
     }
 }

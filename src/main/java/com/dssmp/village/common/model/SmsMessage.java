@@ -66,6 +66,10 @@ public class SmsMessage  extends ID {
      */
     private String freeSign;
 
+    public SmsMessage() {
+
+    }
+
     public String getFreeSign() {
         return freeSign;
     }

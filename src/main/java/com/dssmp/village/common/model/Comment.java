@@ -63,6 +63,16 @@ public class Comment extends ID {
      */
     private int status;
 
+    public Comment() {
+
+    }
+
+    public Comment(long pid, Date create_time, String message) {
+        this.pid = pid;
+        this.create_time = create_time;
+        this.message = message;
+    }
+
     public long getPid() {
         return pid;
     }

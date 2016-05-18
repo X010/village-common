@@ -37,4 +37,12 @@ public interface StepService {
      * @return
      */
     Step peak(Step step);
+
+    /**
+     * 获取数据
+     *
+     * @param step
+     * @return
+     */
+    Step info(Step step);
 }

@@ -1,5 +1,9 @@
 package com.dssmp.village.common.service;
 
+import com.dssmp.village.common.model.Letter;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +22,20 @@ package com.dssmp.village.common.service;
  * limitations under the License.
  */
 public interface LetterService {
+
+    /**
+     * 发送私信
+     *
+     * @param letter
+     * @return
+     */
+    public Letter smtp(Letter letter);
+
+    /**
+     * 收接私信
+     *
+     * @param letter
+     * @return
+     */
+    public List<Letter> pop(Letter letter);
 }

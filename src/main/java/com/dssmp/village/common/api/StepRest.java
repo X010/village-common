@@ -49,7 +49,7 @@ public class StepRest extends BaseRest {
         String res = null;
         RM<String> rm = new RM<String>();
         String vail = RequestUtil.vailParam(request, "pid");
-        if (!Strings.isNullOrEmpty(vail)) {
+        if (Strings.isNullOrEmpty(vail)) {
             long pid = RequestUtil.getLong(request, "pid", 0);
             Step step = new Step(pid);
             this.stepService.step(step);
@@ -67,18 +67,43 @@ public class StepRest extends BaseRest {
      * @param request
      * @param response
      */
-    @RequestMapping(value = "step")
+    @RequestMapping(value = "peak")
     public void step(HttpServletRequest request, HttpServletResponse response) {
         String res = null;
         RM<String> rm = new RM<String>();
         String vail = RequestUtil.vailParam(request, "pid");
-        if (!Strings.isNullOrEmpty(vail)) {
+        if (Strings.isNullOrEmpty(vail)) {
             long pid = RequestUtil.getLong(request, "pid", 0);
             Step step = new Step(pid);
             this.stepService.peak(step);
         } else {
             rm.setStatus(400);
             rm.setMessage(vail);
+        }
+        res = JsonParser.simpleJson(rm);
+        this.response_write(request, response, res);
+    }
+
+    /**
+     * 获取数据
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "info")
+    public void info(HttpServletRequest request, HttpServletResponse response) {
+        String res = null;
+        RM<Step> rm = new RM<Step>();
+        String vail = RequestUtil.vailParam(request, "pid");
+        if (Strings.isNullOrEmpty(vail)) {
+            long pid = RequestUtil.getLong(request, "pid", 0);
+            Step step = this.stepService.info(new Step(pid));
+            if (step != null) {
+                rm.setData(step);
+            } else {
+                rm.setStatus(400);
+                rm.setMessage("not found");
+            }
         }
         res = JsonParser.simpleJson(rm);
         this.response_write(request, response, res);

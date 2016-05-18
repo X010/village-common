@@ -1,7 +1,10 @@
 package com.dssmp.village.common.service.impl;
 
+import com.dssmp.village.common.model.Letter;
 import com.dssmp.village.common.service.LetterService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,4 +25,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class LetterServiceImpl implements LetterService {
+
+
+    @Override
+    public Letter smtp(Letter letter) {
+        return null;
+    }
+
+    @Override
+    public List<Letter> pop(Letter letter) {
+        return null;
+    }
 }
