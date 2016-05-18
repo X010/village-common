@@ -1,7 +1,13 @@
 package com.dssmp.village.common.service.impl;
 
+import com.dssmp.village.common.model.Step;
+import com.dssmp.village.common.mybatis.mapper.StepMapper;
 import com.dssmp.village.common.service.StepService;
+import com.google.common.base.Preconditions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,6 +28,40 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class StepServiceImpl implements StepService {
+    @Autowired
+    private StepMapper stepMapper;
 
+    @Override
+    public Step step(Step step) {
+        Preconditions.checkNotNull(step);
+        Step old = this.stepMapper.findStepByPid(step);
+        if (old != null && old.getId() > 0) {
+            old.setStep(old.getStep() + 1);
+            old.setLast_update_time(new Date());
+            this.stepMapper.updateById(step);
+            step = old;
+        } else {
+            step.setStep(1);
+            step.setLast_update_time(new Date());
+            this.stepMapper.insertStep(step);
+        }
+        return step;
+    }
 
+    @Override
+    public Step peak(Step step) {
+        Preconditions.checkNotNull(step);
+        Step old = this.stepMapper.findStepByPid(step);
+        if (old != null && old.getId() > 0) {
+            old.setPeak(old.getPeak() + 1);
+            old.setLast_update_time(new Date());
+            this.stepMapper.updateById(step);
+            step = old;
+        } else {
+            step.setPeak(1);
+            step.setLast_update_time(new Date());
+            this.stepMapper.insertStep(step);
+        }
+        return step;
+    }
 }

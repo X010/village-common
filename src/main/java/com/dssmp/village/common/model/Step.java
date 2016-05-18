@@ -41,6 +41,21 @@ public class Step extends ID {
      */
     private Date last_update_time;
 
+    public Step(long pid, int step, int peak, Date last_update_time) {
+        this.pid = pid;
+        this.step = step;
+        this.peak = peak;
+        this.last_update_time = last_update_time;
+    }
+
+    public Step(long pid) {
+        this.pid = pid;
+    }
+
+    public Step() {
+
+    }
+
     public long getPid() {
         return pid;
     }

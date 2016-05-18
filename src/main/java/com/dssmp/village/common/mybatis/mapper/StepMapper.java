@@ -1,4 +1,4 @@
-package com.dssmp.village.common.service;
+package com.dssmp.village.common.mybatis.mapper;
 
 import com.dssmp.village.common.model.Step;
 
@@ -19,22 +19,29 @@ import com.dssmp.village.common.model.Step;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public interface StepService {
+public interface StepMapper {
+
+    /**
+     * 对商品踩一个
+     *
+     * @param step
+     */
+    public void updateById(Step step);
 
 
     /**
-     * 顶
+     * 添加Step数据
+     *
+     * @param step
+     */
+    public void insertStep(Step step);
+
+
+    /**
+     * 根据PID获取Step
      *
      * @param step
      * @return
      */
-    Step step(Step step);
-
-    /**
-     * 踩
-     *
-     * @param step
-     * @return
-     */
-    Step peak(Step step);
+    public Step findStepByPid(Step step);
 }
