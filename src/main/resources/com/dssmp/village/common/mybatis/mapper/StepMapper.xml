@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dssmp.village.common.mybatis.mapper.StepMapper">
+    <resultMap id="steps" type="Step">
+        <result column="id" property="id"/>
+        <result column="pid" property="pid"/>
+        <result column="step" property="step"/>
+        <result column="peak" property="peak"/>
+        <result column="last_update_time" property="last_update_time"/>
+    </resultMap>
+    <update id="updateById" parameterType="Step">
+        <![CDATA[UPDATE village_step SET step=#{step},peak=#{peak},last_update_time=#{last_update_time} WHERE id=#{id}]]>
+    </update>
+    <insert id="insertStep" parameterType="Step">
+        <![CDATA[INSERT  INTO village_step(pid,step,peak,last_update_time)VALUES (#{pid},#{step},#{peak},#{last_update_time})]]>
+    </insert>
+    <select id="findStepByPid" parameterType="Step" resultType="Step">
+        <![CDATA[SELECT * FROM village_step WHERE pid=#{pid}]]>
+    </select>
+</mapper>
